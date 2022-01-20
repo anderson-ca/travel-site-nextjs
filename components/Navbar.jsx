@@ -3,11 +3,17 @@ import Link from 'next/link';
 
 import { useState } from 'react';
 import { FaTypo3, FaTimes, FaBars } from 'react-icons/fa';
-// click == <FaTimes /> ? setClick(<FaBars />) : setClick(<FaTimes />);
-const Navbar = () => {
-    const [click, setClick] = useState(<FaTimes />);
 
-    const handleClick = () => click.type.name == 'FaTimes' ? setClick(<FaBars />) : setClick(<FaTimes />);
+const Navbar = () => {
+    const [click, setClick] = useState(false);
+    const [menuIcon, setMenuIcon] = useState(<FaTimes />);
+
+    const handleClick = () => {
+        (!click) ? setMenuIcon(<FaBars />) : setMenuIcon(<FaTimes />);
+        setClick(!click)
+    };
+
+    const closeMobileMenu = () => setClick(false);
 
 
     return (
@@ -21,10 +27,32 @@ const Navbar = () => {
                         </span>
                     </Link>
                     <div className='menu-icon' onClick={handleClick}>
-                        <p>
-                            {click}
-                        </p>
+                        <i>
+                            {menuIcon}
+                        </i>
                     </div>
+                    <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                        <li className="nav-item">
+                            <Link href='/' className='nav-links' onClick={closeMobileMenu}>
+                                Home
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link href='/service' className='nav-links' onClick={closeMobileMenu}>
+                                Service
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link href='/products' className='nav-links' onClick={closeMobileMenu}>
+                                Products
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link href='/sign-up' className='nav-links' onClick={closeMobileMenu}>
+                                Sign Up
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         </>
