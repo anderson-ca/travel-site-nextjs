@@ -1,3 +1,4 @@
+import Button from '../components/Button';
 import navbarStyles from '../styles/Navbar.module.css';
 import Link from 'next/link';
 
@@ -6,12 +7,15 @@ import { FaTypo3, FaTimes, FaBars } from 'react-icons/fa';
 
 const Navbar = () => {
     const [click, setClick] = useState(false);
+    const [button, setButton] = useState(true);
     const [menuIcon, setMenuIcon] = useState(<FaTimes />);
 
     const handleClick = () => {
         (!click) ? setMenuIcon(<FaBars />) : setMenuIcon(<FaTimes />);
         setClick(!click)
     };
+
+    const showButton = () => window.innerWidth <= 960 ? setButton(false) : setButton(true);
 
     const closeMobileMenu = () => setClick(false);
 
@@ -53,6 +57,7 @@ const Navbar = () => {
                             </Link>
                         </li>
                     </ul>
+                    {button && <Button />}
                 </div>
             </nav>
         </>
